@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="color-scheme" content="only light" id="meta-color-scheme">
+  <meta name="supported-color-schemes" content="light dark">
+  <meta name="theme-color" content="#edeef0" id="meta-theme-color">
+  <title>Лига Помощников | Сферум</title>
+  <script src="https://st.max.ru/js/max-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="style.css?v=22">
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-main">
+      <div class="header-left">
+        <div class="header-avatar" id="header-avatar">УЧ</div>
+        <div class="header-user-info">
+          <div class="header-name-row">
+            <h1 class="header-name" id="header-name">Загрузка...</h1>
+            <span class="role-badge" id="header-role">Ученик</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="coins-chip">
+          <svg class="icon-coin" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v10M9 9.5h6a2 2 0 0 1 0 4H9"/>
+          </svg>
+          <span class="coins-amount" id="header-coins">0</span>
+        </div>
+
+        <button type="button" class="theme-toggle-btn" id="theme-toggle-btn" title="Сменить тему">
+          <svg id="theme-icon-moon" class="icon-theme" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg id="theme-icon-sun" class="icon-theme hidden" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="header-chat-bar">
+      <button class="class-picker-btn" id="class-picker-trigger" onclick="openClassModal()" title="Выбрать учебный чат">
+        <div class="picker-btn-left">
+          <svg class="icon-inline" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span class="class-picker-prefix">Чат:</span>
+          <span id="current-class-label" class="current-class-label">Учебный чат</span>
+        </div>
+        <span class="picker-arrow">▾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <section id="tab-profile" class="tab-pane active">
+      <div class="sferum-hero-card">
+        <div class="hero-top">
+          <div class="hero-rank-info">
+            <span class="hero-sub">Звание в Лиге Помощников</span>
+            <div class="hero-title-row">
+              <h2 class="hero-rank" id="profile-level-title">Знаток</h2>
+              <span class="profile-streak-badge" id="profile-streak-badge">🔥 1 день в строю</span>
+            </div>
+          </div>
+          <div class="hero-level-chip" id="profile-level-num">1 уровень</div>
+        </div>
+
+        <div class="hero-progress-section">
+          <div class="progress-labels">
+            <span>Прогресс звания</span>
+            <span id="profile-xp-text">0 / 100 XP</span>
+          </div>
+          <div class="sferum-progress-track">
+            <div id="profile-xp-fill" class="sferum-progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-row" id="profile-stats-row">
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+            </svg>
+          </div>
+          <div class="stat-number" id="profile-helped">0</div>
+          <div class="stat-caption">Помог в чатах</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <div class="stat-number" id="profile-questions">0</div>
+          <div class="stat-caption">Задал вопросов</div>
+        </div>
+
+        <div class="stat-box">
+          <div class="stat-icon-wrap">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <div class="stat-number" id="profile-rank">#1</div>
+          <div class="stat-caption">Место в рейтинге</div>
+        </div>
+      </div>
+
+      <div class="sferum-card pulse-card" id="profile-class-pulse" style="display: none;">
+        <div class="card-header-row">
+          <div class="pulse-title-wrap">
+            <span class="pulse-icon">📈</span>
+            <h3>Пульс взаимопомощи</h3>
+          </div>
+          <span class="pulse-badge" id="pulse-rate-badge">0%</span>
+        </div>
+        <p class="pulse-summary" id="pulse-summary-text">Загрузка статистики класса...</p>
+        <div class="pulse-metrics-grid">
+          <div class="pulse-metric-item">
+            <span class="pulse-metric-val" id="pulse-resolved-val">0</span>
+            <span class="pulse-metric-lbl">Решено за неделю</span>
+          </div>
+          <div class="pulse-metric-item">
+            <span class="pulse-metric-val" id="pulse-time-val">0 ч.</span>
+            <span class="pulse-metric-lbl">Экономия учителя</span>
+          </div>
+          <div class="pulse-metric-item">
+            <span class="pulse-metric-val" id="pulse-leader-val">—</span>
+            <span class="pulse-metric-lbl">Лидер недели</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sferum-card info-banner">
+        <div class="info-banner-header">
+          <svg class="icon-info" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <h3>Как работает взаимопомощь</h3>
+        </div>
+        <p>Задавайте вопросы в чате через команду <code>/ask</code>. Отвечайте на вопросы одноклассников реплаем. Когда автор подтверждает ответ кнопкой «Помог», вам начисляется <b>+50 XP</b> и <b>+1 спасибка</b>.</p>
+      </div>
+
+      <div class="sferum-card my-claims-card" id="profile-my-claims-card">
+        <h3 class="claims-heading">Мои награды в этом чате</h3>
+        <div id="my-requests-list" class="claims-list">
+          <p class="empty-state-text">У вас пока нет активных запросов на награды.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-leaderboard" class="tab-pane">
+      <div class="page-title-box">
+        <h2 class="page-title">Рейтинг помощников</h2>
+        <p class="page-desc">Участники, которые активнее всех помогают в чате</p>
+      </div>
+
+      <div class="segmented-wrapper">
+        <div class="segmented-control scope-selector">
+          <button class="seg-btn active" id="scope-class-btn" onclick="setLeaderboardScope('chat')">В этом чате</button>
+          <button class="seg-btn" id="scope-school-btn" onclick="setLeaderboardScope('all')">Все чаты</button>
+        </div>
+
+        <div class="segmented-control period-selector">
+          <button class="seg-btn active" id="btn-period-all" onclick="changeLeaderboardPeriod('all_time')">За всё время</button>
+          <button class="seg-btn" id="btn-period-week" onclick="changeLeaderboardPeriod('weekly')">За неделю</button>
+        </div>
+      </div>
+
+      <div class="leaderboard-cards" id="leaderboard-container">
+        <div class="state-loading">Загрузка рейтинга...</div>
+      </div>
+    </section>
+
+    <section id="tab-achievements" class="tab-pane">
+      <div class="page-title-box">
+        <h2 class="page-title">Достижения</h2>
+        <p class="page-desc">Образовательные бейджи за серии помощи и сложные задачи</p>
+      </div>
+
+      <div class="achievements-grid" id="achievements-container">
+        <div class="state-loading">Загрузка наград...</div>
+      </div>
+    </section>
+
+    <section id="tab-rewards" class="tab-pane">
+      <div class="page-title-box">
+        <h2 class="page-title">Лавка наград</h2>
+        <p class="page-desc">Обменивайте спасибки на бонусы от учителей</p>
+      </div>
+
+      <div class="balance-banner">
+        <div class="balance-info">
+          <span class="balance-label">Доступно к обмену:</span>
+          <span class="balance-val"><strong id="shop-coins">0</strong> <span class="coin-unit">спасибок</span></span>
+        </div>
+      </div>
+
+      <div class="rewards-section-title">Каталог наград от учителей</div>
+      <div class="rewards-grid" id="rewards-container">
+        <div class="state-loading">Загрузка витрины...</div>
+      </div>
+    </section>
+
+    <section id="tab-teacher" class="tab-pane">
+      <div class="page-title-box">
+        <h2 class="page-title">Кабинет учителя</h2>
+        <p class="page-desc">Управление бонусами и одобрение заявок учеников</p>
+      </div>
+
+      <div class="segmented-wrapper">
+        <div class="segmented-control teacher-subnav">
+          <button class="seg-btn active" id="btn-tsub-overview" onclick="switchTeacherSubTab('overview')">📋 Заявки</button>
+          <button class="seg-btn" id="btn-tsub-rewards" onclick="switchTeacherSubTab('rewards')">🎁 Награды</button>
+          <button class="seg-btn" id="btn-tsub-award" onclick="switchTeacherSubTab('award')">⭐️ Вручение</button>
+        </div>
+      </div>
+
+      <div id="tsub-overview" class="teacher-subpane active">
+        <div class="sferum-card collapsible-card" id="card-pending-claims">
+          <div class="card-header-row collapsible-trigger" onclick="toggleCardCollapse('card-pending-claims')">
+            <div class="collapsible-header-left">
+              <span class="collapse-icon">▾</span>
+              <h3>Входящие заявки на награды</h3>
+            </div>
+            <span class="count-pill" id="pending-claims-count">0</span>
+          </div>
+          <div class="collapsible-content">
+            <div id="teacher-requests-list" class="teacher-claims-list">
+              <div class="state-loading">Загрузка заявок...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sferum-card collapsible-card collapsed" id="card-issued-rewards">
+          <div class="card-header-row collapsible-trigger" onclick="toggleCardCollapse('card-issued-rewards')">
+            <div class="collapsible-header-left">
+              <span class="collapse-icon">▸</span>
+              <h3>Выданные награды</h3>
+            </div>
+            <span class="count-pill" id="teacher-issued-count">0</span>
+          </div>
+          <div class="collapsible-content">
+            <p class="card-subtext">История выданных бонусов и одобренных наград ученикам.</p>
+            <div id="teacher-issued-list" class="teacher-issued-list">
+              <div class="state-loading">Загрузка истории...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tsub-rewards" class="teacher-subpane hidden">
+        <div class="sferum-card collapsible-card" id="card-teacher-rewards">
+          <div class="card-header-row collapsible-trigger" onclick="toggleCardCollapse('card-teacher-rewards')">
+            <div class="collapsible-header-left">
+              <span class="collapse-icon">▾</span>
+              <h3>Награды в этом чате</h3>
+            </div>
+            <span class="count-pill" id="teacher-rewards-count">0</span>
+          </div>
+          <div class="collapsible-content">
+            <p class="card-subtext">Активные бонусы от учителей. Вы можете удалить неактуальные награды.</p>
+            <div id="teacher-rewards-list" class="teacher-rewards-list">
+              <div class="state-loading">Загрузка наград...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sferum-card">
+          <h3>Добавить новую награду</h3>
+          <p class="card-subtext">Создайте награду для выбранного чата.</p>
+          <form id="create-reward-form" onsubmit="handleCreateReward(event)">
+            <div class="form-field">
+              <label class="field-label">Название награды</label>
+              <input type="text" id="rew-title" class="sferum-input" placeholder="Например: Освобождение от одного устного ДЗ" required>
+            </div>
+            <div class="form-field">
+              <label class="field-label">Описание</label>
+              <input type="text" id="rew-desc" class="sferum-input" placeholder="Условия и порядок применения" required>
+            </div>
+            <div class="form-field">
+              <label class="field-label">Стоимость (спасибки)</label>
+              <input type="number" id="rew-price" class="sferum-input" value="5" min="1" max="500" required>
+            </div>
+            <button type="submit" class="sferum-btn btn-primary full-width">Опубликовать награду</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="tsub-award" class="teacher-subpane hidden">
+        <div class="sferum-card">
+          <h3>Вручить «Выбор учителя»</h3>
+          <p class="card-subtext">Отметьте ученика за самое понятное объяснение (+100 XP и +20 спасибок).</p>
+          <div class="award-form-row">
+            <select id="teacher-award-student" class="sferum-input flex-1">
+              <option value="">Выберите ученика...</option>
+            </select>
+            <button type="button" class="sferum-btn btn-primary" onclick="handleAwardTeacherBadge()">Вручить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="bottom-tabbar">
+    <button class="tab-item active" onclick="switchTab('profile', this)">
+      <div class="tab-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <span class="tab-text">Профиль</span>
+    </button>
+
+    <button class="tab-item" onclick="switchTab('leaderboard', this)">
+      <div class="tab-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+      </div>
+      <span class="tab-text">Рейтинг</span>
+    </button>
+
+    <button class="tab-item" onclick="switchTab('achievements', this)">
+      <div class="tab-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="7"/>
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+        </svg>
+      </div>
+      <span class="tab-text">Ачивки</span>
+    </button>
+
+    <button class="tab-item" id="nav-rewards-btn" onclick="switchTab('rewards', this)">
+      <div class="tab-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 12 20 22 4 22 4 12"/>
+          <rect x="2" y="7" width="20" height="5"/>
+          <line x1="12" y1="22" x2="12" y2="7"/>
+          <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+          <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
+        </svg>
+      </div>
+      <span class="tab-text">Лавка</span>
+    </button>
+
+    <button class="tab-item" id="nav-teacher-btn" onclick="switchTab('teacher', this)">
+      <div class="tab-icon">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <span class="tab-text">Учитель</span>
+    </button>
+  </nav>
+
+  <div id="class-modal" class="modal-backdrop hidden" onclick="closeClassModal(event)">
+    <div class="modal-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h3 class="sheet-title">Учебные чаты</h3>
+        <button class="sheet-close" onclick="closeClassModal()">✕</button>
+      </div>
+      <div class="sheet-classes-list" id="sheet-classes-list">
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js?v=22"></script>
+</body>
+</html>

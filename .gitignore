@@ -1,0 +1,28 @@
+.env
+database.db
+database.db*
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+*.log
+*.zip
+
+описание идеи и требования/
+"описание идеи и требования"/
+scratch/
+CHECKLIST.md
+MANUAL_TESTING_*.md
